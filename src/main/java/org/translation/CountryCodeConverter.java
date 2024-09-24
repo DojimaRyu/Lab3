@@ -44,9 +44,6 @@ public class CountryCodeConverter {
                 String name = curr[0];
                 String alpha3 = curr[2].toLowerCase();
 
-                System.out.println(name);
-                System.out.println(alpha3);
-
                 this.countriesCodeToName.put(alpha3, name);
                 this.countriesNameToCode.put(name, alpha3);
 
@@ -66,7 +63,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // [Modified
+        // [Modified]
         return this.countriesCodeToName.get(code);
     }
 
