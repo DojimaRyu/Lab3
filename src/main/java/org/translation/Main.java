@@ -66,9 +66,14 @@ public class Main {
             //            Note: you should use the actual names in the message printed below though,
             //            since the user will see the displayed message.
             //[modified]
-            LanguageCodeConverter lanToCodeConverter = new LanguageCodeConverter();
-            System.out.println(country + " in " + language + " is " + lanToCodeConverter
-                    .fromLanguage(translator.translate(country, language)));
+            LanguageCodeConverter codeToLanConverter = new LanguageCodeConverter();
+            String translation = translator.translate(conCode, codeToLanConverter.fromLanguage(language));
+            if (translation != null) {
+                System.out.println(country + " in " + language + " is " + translation);
+            }
+            else{
+                System.out.println("Error: Invalid country and/or language entered! Please try again.");
+            }
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -116,8 +121,6 @@ public class Main {
         ArrayList<String> fullLanguagesSorted = new ArrayList<>();
         List<String> languages = translator.getCountryLanguages(country);
         for (String language : languages) {
-            System.out.println(language);
-            System.out.println(lanToCodeConverter.fromLanguageCode(language));
             fullLanguagesSorted.add(lanToCodeConverter.fromLanguageCode(language));
         }
         Collections.sort(fullLanguagesSorted);

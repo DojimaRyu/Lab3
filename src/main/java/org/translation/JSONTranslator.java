@@ -16,6 +16,7 @@ import org.json.JSONArray;
 public class JSONTranslator implements Translator {
 
     public static final int KEYCUTOFF = 3;
+    private static final String ALPHA3 = "alpha3";
     private ArrayList<String> countries = new ArrayList<>();
     private List<String> languages = new ArrayList<>();
     private JSONArray data;
@@ -44,12 +45,18 @@ public class JSONTranslator implements Translator {
             // [Modified]
             data = jsonArray;
 
+
             for (int i = 0; i < jsonArray.length(); i++) {
-                this.countries.add(jsonArray.getJSONObject(i).getString("alpha3"));
+                this.countries.add(jsonArray.getJSONObject(i).getString(ALPHA3));
             }
 
             ArrayList<String> temp = new ArrayList<>(jsonArray.getJSONObject(0).keySet());
-            this.languages = temp.subList(this.KEYCUTOFF, temp.size());
+            temp.remove("alpha2");
+            temp.remove(ALPHA3);
+            temp.remove("id");
+            assert temp.contains(ALPHA3);
+            this.languages = temp;
+            //this.languages = temp.subList(this.KEYCUTOFF, temp.size());
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -74,7 +81,10 @@ public class JSONTranslator implements Translator {
         int i = 0;
 
         while (i < data.length()) {
-            if (data.getJSONObject(i).getString("alpha3").equals(country)) {
+            if (data.getJSONObject(i).getString(ALPHA3).equals(country)) {
+                if (data.getJSONObject(i).isNull(language)) {
+                    break;
+                }
                 return data.getJSONObject(i).getString(language);
             }
 
