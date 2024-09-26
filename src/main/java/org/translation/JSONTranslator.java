@@ -54,7 +54,6 @@ public class JSONTranslator implements Translator {
             temp.remove("alpha2");
             temp.remove(ALPHA3);
             temp.remove("id");
-            assert temp.contains(ALPHA3);
             this.languages = temp;
             //this.languages = temp.subList(this.KEYCUTOFF, temp.size());
 
