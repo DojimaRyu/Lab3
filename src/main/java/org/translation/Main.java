@@ -114,7 +114,10 @@ public class Main {
         // [modified]
         LanguageCodeConverter lanToCodeConverter = new LanguageCodeConverter();
         ArrayList<String> fullLanguagesSorted = new ArrayList<>();
-        for (String language : translator.getCountryLanguages(country)) {
+        List<String> languages = translator.getCountryLanguages(country);
+        for (String language : languages) {
+            System.out.println(language);
+            System.out.println(lanToCodeConverter.fromLanguageCode(language));
             fullLanguagesSorted.add(lanToCodeConverter.fromLanguageCode(language));
         }
         Collections.sort(fullLanguagesSorted);
