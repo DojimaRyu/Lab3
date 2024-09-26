@@ -42,10 +42,10 @@ public class CountryCodeConverter {
                 String[] curr = line.split("\t+");
 
                 String name = curr[0];
-                String alpha3 = curr[2].toLowerCase();
+                String alpha3 = curr[2];
 
-                this.countriesCodeToName.put(alpha3, name);
-                this.countriesNameToCode.put(name, alpha3);
+                this.countriesCodeToName.put(alpha3.toLowerCase(), name);
+                this.countriesNameToCode.put(name, alpha3.toLowerCase());
 
             }
 
@@ -64,7 +64,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // [Modified]
-        return this.countriesCodeToName.get(code);
+        return this.countriesCodeToName.get(code.toLowerCase());
     }
 
     /**
@@ -74,7 +74,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // [Modified]
-        return this.countriesNameToCode.get(country.toLowerCase());
+        return this.countriesNameToCode.get(country);
     }
 
     /**
