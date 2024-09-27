@@ -3,12 +3,6 @@ package org.translation;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Task: modify this class so that it also supports the Spanish language code "es" and
-//            one more language code of your choice. Each member of your group should add
-//            support for one additional langauge code on a branch; then push and create a pull request on GitHub.
-
-// Extra Task: if your group has extra time, you can add support for another country code in this class.
-
 /**
  * An implementation of the Translator interface which translates
  * the country code "can" to several languages.
@@ -21,12 +15,12 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
-    // Done TODO Checkstyle: Static variable definition in wrong order.
+    // [Modified]
     public static final String CANADA = "can";
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // Done TODO Checkstyle: The String "can" appears 4 times in the file.
+        // [Modified]
         if (country.equals(CANADA)) {
             return new ArrayList<>(List.of("de", "en", "zh"));
         }
@@ -53,8 +47,8 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // Done TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // Done TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
+        // [Modified]
+        // [Modified]
         if (!country.equals(CANADA)) {
             return null;
         }

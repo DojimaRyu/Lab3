@@ -5,9 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
@@ -15,8 +13,8 @@ import java.util.Map;
 public class CountryCodeConverter {
 
     // [Modified]
-    HashMap<String, String> countriesCodeToName = new HashMap<>();
-    HashMap<String, String> countriesNameToCode = new HashMap<>();
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> codes = new ArrayList<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -42,13 +40,12 @@ public class CountryCodeConverter {
                 String[] curr = line.split("\t+");
 
                 String name = curr[0];
-                String alpha3 = curr[2];
+                String alpha3 = curr[2].toLowerCase();
 
-                this.countriesCodeToName.put(alpha3.toLowerCase(), name);
-                this.countriesNameToCode.put(name, alpha3.toLowerCase());
+                this.names.add(name);
+                this.codes.add(alpha3);
 
             }
-
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -64,7 +61,19 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // [Modified]
-        return this.countriesCodeToName.get(code.toLowerCase());
+        int i = 0;
+        String answer = null;
+
+        while (i < this.getNumCountries()) {
+            if (this.codes.get(i).equals(code.toLowerCase())) {
+                answer = this.names.get(i);
+                break;
+            }
+
+            i++;
+        }
+
+        return answer;
     }
 
     /**
@@ -74,7 +83,19 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // [Modified]
-        return this.countriesNameToCode.get(country);
+        int i = 0;
+        String answer = null;
+
+        while (i < this.getNumCountries()) {
+            if (this.names.get(i).equals(country)) {
+                answer = this.codes.get(i);
+                break;
+            }
+
+            i++;
+        }
+
+        return answer;
     }
 
     /**
@@ -83,6 +104,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // [Modified]
-        return this.countriesCodeToName.size();
+        return this.names.size();
     }
 }

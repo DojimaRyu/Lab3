@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
@@ -14,8 +13,8 @@ import java.util.Map;
 public class LanguageCodeConverter {
 
     // [Modified]
-    HashMap<String, String> languagesCodeToName = new HashMap<>();
-    HashMap<String, String> languagesNameToCode = new HashMap<>();
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> codes = new ArrayList<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -37,14 +36,13 @@ public class LanguageCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             // [Modified]
-
             for (String line : lines.subList(1, lines.size())) {
                 String[] curr = line.split("\t+");
                 String name = curr[0];
                 String code = curr[1].toLowerCase();
 
-                this.languagesCodeToName.put(code, name);
-                this.languagesNameToCode.put(name, code);
+                this.names.add(name);
+                this.codes.add(code);
 
             }
         }
@@ -61,7 +59,17 @@ public class LanguageCodeConverter {
      */
     public String fromLanguageCode(String code) {
         // [Modified]
-        return this.languagesCodeToName.get(code.toLowerCase());
+        int i = 0;
+        String answer = null;
+        while (i < getNumLanguages()) {
+            if (this.codes.get(i).equals(code)) {
+                answer = this.names.get(i);
+            }
+
+            i++;
+        }
+
+        return answer;
     }
 
     /**
@@ -71,7 +79,17 @@ public class LanguageCodeConverter {
      */
     public String fromLanguage(String language) {
         // [Modified]
-        return this.languagesNameToCode.get(language);
+        int i = 0;
+        String answer = null;
+        while (i < getNumLanguages()) {
+            if (this.names.get(i).equals(language)) {
+                answer = this.codes.get(i);
+            }
+
+            i++;
+        }
+
+        return answer;
     }
 
     /**
@@ -80,6 +98,6 @@ public class LanguageCodeConverter {
      */
     public int getNumLanguages() {
         // [Modified]
-        return this.languagesCodeToName.size();
+        return this.names.size();
     }
 }

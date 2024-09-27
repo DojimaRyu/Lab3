@@ -45,7 +45,6 @@ public class JSONTranslator implements Translator {
             // [Modified]
             data = jsonArray;
 
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 this.countries.add(jsonArray.getJSONObject(i).getString(ALPHA3));
             }
@@ -55,7 +54,6 @@ public class JSONTranslator implements Translator {
             temp.remove(ALPHA3);
             temp.remove("id");
             this.languages = temp;
-            //this.languages = temp.subList(this.KEYCUTOFF, temp.size());
 
         }
         catch (IOException | URISyntaxException ex) {
